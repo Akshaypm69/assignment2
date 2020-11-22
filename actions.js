@@ -31,14 +31,14 @@ const getproducts = async (req, res, next) => {
     const sort = req.query.sort || 1
     try {
 
-        products = await Product.find({}).sort({price:sort})
+        products = await Product.find({}).sort({Price:sort})
 
     } catch (error) {
         
         return next(new HttpError('couldnt get products', 400))
 
     }
-
+   
     res.json({products:products.map(product => product.toObject({ getters:true }))})
 
 }

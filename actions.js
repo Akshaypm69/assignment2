@@ -39,7 +39,7 @@ const getproducts = async (req, res, next) => {
 
     }
 
-    res.json({products})
+    res.json({products:products.map(product => product.toObject({ getters:true }))})
 
 }
 const postcontactus = async (req, res, next) => {

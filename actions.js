@@ -6,11 +6,12 @@ const Contact = require('./models/contact')
 const Subscription = require('./models/subscriberlist')
 const postproducts = async (req, res, next) => {
 let result
-const { name, price } = req.body;
+const { Name, Price, Path } = req.body;
 const newProduct = new Product({
 
-    name,
-    price
+    Name,
+    Price,
+    Path
 
 })
 try {

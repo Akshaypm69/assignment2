@@ -4,8 +4,9 @@ const Schema = mongoose.Schema;
 
 const productSchema = Schema({
 
-    name:{ type:String, required:true },
-    price:{ type:Number, required:true }
+    Name:{ type:String, required:true },
+    Price:{ type:Number, required:true },
+    Path:{ type:String }
 
 })
 module.exports = mongoose.model('Product', productSchema)

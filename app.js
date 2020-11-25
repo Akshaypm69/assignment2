@@ -2,6 +2,7 @@
 const express = require ('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
+const path = require('path')
 const productActions = require('./actions')
 const app = express()
 
@@ -16,6 +17,7 @@ app.use((req, res, next) => {
 
 })
 
+app.use('/uploads/images',express.static(path.join('uploads','images')))
 
 app.use('/', productActions)
 

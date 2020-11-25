@@ -7,6 +7,8 @@ const Subscription = require('./models/subscriberlist')
 const About = require('./models/about')
 const Contactinfo = require('./models/contactifo')
 const Ingredient = require('./models/ingredients')
+const fileupload = require('./middleware/fileupload')
+
 const postproducts = async (req, res, next) => {
 let result
 const { Name, Price, Path } = req.body;
@@ -98,10 +100,11 @@ res.json(result)
 const createabout = async (req, res, next) => {
 let result
 const about = new About({
-
+    image:'http://localhost:3000/' + req.file.path,
     description:req.body.description
 
 })
+console.log(req.file.path)
 try {
     result = await about.save()
 } catch (error) {
@@ -184,7 +187,7 @@ router.post('/products', postproducts)
 router.get('/products', getproducts)
 router.post('/contactus',postcontactus)
 router.post('/subscribe',addsubscription)
-router.post('/about',createabout)
+router.post('/about',fileupload.single('image'),createabout)
 router.get('/aboutus',getabout)
 router.get('/ingredients',getingredinets)
 router.post('/ingredients',postingredinets)

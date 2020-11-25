@@ -11,12 +11,12 @@ const fileupload = require('./middleware/fileupload')
 
 const postproducts = async (req, res, next) => {
 let result
-const { Name, Price, Path } = req.body;
+const { Name, Price } = req.body;
 const newProduct = new Product({
 
     Name,
     Price,
-    Path
+    Path:'http://localhost:3000/' + req.file.path
 
 })
 try {
@@ -25,7 +25,7 @@ try {
     return next(new HttpError('couldnt add prosuct', 400))
 }
 
-res.json({result})
+res.json(result)
 
 }
 
@@ -44,7 +44,7 @@ const getproducts = async (req, res, next) => {
 
     }
    
-    res.json({products:products.map(product => product.toObject({ getters:true }))})
+    res.json(products.map(product => product.toObject({ getters:true })))
 
 }
 const postcontactus = async (req, res, next) => {
@@ -183,7 +183,7 @@ const putinfo = async(req, res, next) => {
 
 }
 
-router.post('/products', postproducts)
+router.post('/products',fileupload.single('Path'), postproducts)
 router.get('/products', getproducts)
 router.post('/contactus',postcontactus)
 router.post('/subscribe',addsubscription)
